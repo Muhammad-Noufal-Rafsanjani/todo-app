@@ -9,8 +9,34 @@ if (!isset($_SESSION['user_id'])) {
 include "koneksi.php";
 
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM notes WHERE user_id = '$user_id'";
-$result = mysqli_query($conn, $query);
+$keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+$date = isset($_GET['date']) ? trim($_GET['date']) : '';
+
+$conditions = ["user_id = ?"];
+$types = "i";
+$params = [$user_id];
+
+if ($keyword !== '') {
+    $conditions[] = "(title LIKE ? OR content LIKE ?)";
+    $searchTerm = "%$keyword%";
+    $types .= "ss";
+    $params[] = $searchTerm;
+    $params[] = $searchTerm;
+}
+
+if ($date !== '') {
+    $conditions[] = "DATE(created_at) = ?";
+    $types .= "s";
+    $params[] = $date;
+}
+
+$whereClause = implode(" AND ", $conditions);
+$query = "SELECT * FROM notes WHERE $whereClause ORDER BY created_at DESC";
+
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, $types, ...$params);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
@@ -29,6 +55,12 @@ $result = mysqli_query($conn, $query);
 </form>
 
 <hr>
+
+<form method="GET" action="index.php">
+    <input type="text" name="keyword" placeholder="Search title or content..." value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+    <input type="date" name="date" value="<?php echo isset($_GET['date']) ? htmlspecialchars($_GET['date']) : ''; ?>">
+    <button type="submit">Search</button>
+</form>
 
 <?php
 while ($row = mysqli_fetch_assoc($result)) {
