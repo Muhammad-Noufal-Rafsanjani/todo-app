@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "includes/koneksi.php";
 ?>
 <?php if (isset($_GET['error'])): ?>
   <p style="color:red;">Email atau password salah.</p>

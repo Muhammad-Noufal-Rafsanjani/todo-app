@@ -1,5 +1,5 @@
 <?php
-include "koneksi.php";
+include "includes/koneksi.php";
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">

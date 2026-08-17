@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "koneksi.php";
+include "includes/koneksi.php";
 
 $email = $_POST['email'];
 $password = $_POST['password'];
