@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
-include "koneksi.php";
+include "includes/koneksi.php";
 
 $id = $_GET['id'];
 

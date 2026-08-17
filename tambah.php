@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
   header("Location: login.php");
   exit();
 }
-include "koneksi.php";
+include "includes/koneksi.php";
 
 $title = $_POST['title'];
 $content = $_POST['content'];

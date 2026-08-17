@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_id'])) {
   header("Location: login.php");
   exit();
 }
-include "koneksi.php";
+include "includes/koneksi.php";
 
 $id = $_GET['id'];
 $query = "SELECT * FROM notes WHERE id = $id";
