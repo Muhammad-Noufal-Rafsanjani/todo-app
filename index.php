@@ -6,37 +6,15 @@ if (!isset($_SESSION['user_id'])) {
   exit();
 }
 
-include "koneksi.php";
+include "includes/koneksi.php";
+include "includes/get_notes.php";
 
 $user_id = $_SESSION['user_id'];
 $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
 $date = isset($_GET['date']) ? trim($_GET['date']) : '';
+$status = isset($_GET['status']) ? trim($_GET['status']) : '';
 
-$conditions = ["user_id = ?"];
-$types = "i";
-$params = [$user_id];
-
-if ($keyword !== '') {
-    $conditions[] = "(title LIKE ? OR content LIKE ?)";
-    $searchTerm = "%$keyword%";
-    $types .= "ss";
-    $params[] = $searchTerm;
-    $params[] = $searchTerm;
-}
-
-if ($date !== '') {
-    $conditions[] = "DATE(created_at) = ?";
-    $types .= "s";
-    $params[] = $date;
-}
-
-$whereClause = implode(" AND ", $conditions);
-$query = "SELECT * FROM notes WHERE $whereClause ORDER BY created_at DESC";
-
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, $types, ...$params);
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$result = getNotes($conn, $user_id, $keyword, $date, $status);
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
