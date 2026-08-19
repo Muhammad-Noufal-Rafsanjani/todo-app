@@ -28,7 +28,7 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
     </div>
     <div class="profile-dropdown" id="profileDropdown">
       <a href="edit_profile.php">Edit Profile</a>
-      <a href="delete_account.php">Delete Account</a>
+      <a href="#" onclick="showDeleteModal(); return false;">Delete Account</a>
       <a href="logout.php">Logout</a>
     </div>
   </div>
@@ -74,6 +74,19 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
 </div>
 
+<div class="modal-overlay" id="deleteModalOverlay">
+    <div class="modal-box">
+        <h3>Delete Account?</h3>
+        <p>This action is permanent. All your notes will be deleted and cannot be recovered.</p>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="hideDeleteModal()">Cancel</button>
+            <form action="process_delete_account.php" method="POST" style="display: inline;">
+                <button type="submit" class="btn-danger">Yes, Delete My Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
 let debounceTimer;
 
@@ -108,6 +121,14 @@ document.addEventListener('click', function(event) {
         dropdown.classList.remove('show');
     }
 });
+
+function showDeleteModal() {
+    document.getElementById('deleteModalOverlay').classList.add('show');
+}
+
+function hideDeleteModal() {
+    document.getElementById('deleteModalOverlay').classList.remove('show');
+}
 
 document.getElementById('keyword').addEventListener('input', handleInput);
 document.getElementById('date').addEventListener('input', fetchNotes);
