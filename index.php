@@ -62,15 +62,15 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 while ($row = mysqli_fetch_assoc($result)) {
   $doneClass = $row['is_done'] ? "done" : "";
   $checked = $row['is_done'] ? "checked" : "";
-  echo "<div class='note-card $doneClass'>";
-  echo "<input type='checkbox' $checked onclick=\"location.href='toggle.php?id=" . $row['id'] . "'\">";
-  echo "<div class='note-content'>";
-  echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
-  echo "<p>" . htmlspecialchars($row['content']) . "</p>";
-  echo "<div class='note-actions'>";
-  echo "<a href='edit.php?id=" . $row['id'] . "'>Edit</a>";
-  echo "<a href='hapus.php?id=" . $row['id'] . "'>Hapus</a>";
-  echo "</div></div></div>";
+echo "<div class='note-card $doneClass'>";
+echo "<input type='checkbox' $checked onclick=\"location.href='toggle.php?id=" . $row['id'] . "'\">";
+echo "<div class='note-content'>";
+echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
+echo "<p>" . htmlspecialchars($row['content']) . "</p>";
+echo "<div class='note-actions'>";
+echo "<a href='edit.php?id=" . $row['id'] . "' class='icon-edit'><i class='fa-solid fa-pen'></i></a>";
+echo "<a href='hapus.php?id=" . $row['id'] . "' class='icon-delete'><i class='fa-solid fa-trash'></i></a>";
+echo "</div></div></div>";
 }
 ?>
 </div>
