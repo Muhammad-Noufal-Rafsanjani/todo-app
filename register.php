@@ -3,6 +3,7 @@ include "includes/koneksi.php";
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <form action="proses_register.php" method="POST">
    <input type="email" name="email" placeholder="Email" required>

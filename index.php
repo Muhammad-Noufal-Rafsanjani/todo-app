@@ -18,6 +18,7 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <div class="navbar">
   <h2>Catatanku</h2>
