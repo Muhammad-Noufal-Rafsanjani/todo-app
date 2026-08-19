@@ -21,7 +21,7 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <div class="navbar">
-  <h2>Catatanku</h2>
+  <h2>To-Do List</h2>
   <div class="profile-menu">
     <div class="profile-trigger" onclick="toggleProfileDropdown()">
       <span class="profile-icon">👤</span>
@@ -46,15 +46,19 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 <hr>
 
 <form method="GET" action="index.php">
-    <input type="text" id="keyword" name="keyword" placeholder="Search title or content..." value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+<div class="search-bar">
+    <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="keyword" name="keyword" placeholder="Search title or content..." value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+    </div>
     <input type="date" id="date" name="date" value="<?php echo isset($_GET['date']) ? htmlspecialchars($_GET['date']) : ''; ?>">
     <select id="status" name="status">
         <option value="">All</option>
         <option value="1" <?php echo (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : ''; ?>>Done</option>
         <option value="0" <?php echo (isset($_GET['status']) && $_GET['status'] === '0') ? 'selected' : ''; ?>>Not Done</option>
     </select>
-    <button type="submit">Search</button>
-    <a href="index.php">Clear</a>
+    <a href="index.php" class="btn-clear">Clear</a>
+</div>
 </form>
 
 <div id="notesList">

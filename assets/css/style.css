@@ -276,3 +276,41 @@ input[type="checkbox"] {
   border-radius: 6px;
   cursor: pointer;
 }
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input-wrapper i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: -4px;
+  color: var(--text-muted);
+}
+
+.search-input-wrapper input {
+  padding-left: 38px;
+}
+
+.btn-clear {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.btn-clear:hover {
+  color: var(--danger-color);
+}
