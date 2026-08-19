@@ -249,34 +249,38 @@ input[type="checkbox"] {
 
 .modal-box {
   background: white;
-  padding: 24px;
-  border-radius: 10px;
+  padding: 28px;
+  border-radius: 14px;
   max-width: 360px;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.modal-actions {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+.modal-box h3 {
+  margin-top: 0;
 }
 
 .btn-cancel {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  background: #e8e8e8;
+  color: #444;
+  border-radius: 8px;
 }
 
-.btn-danger {
-  padding: 8px 16px;
-  border: none;
-  background: #dc3545;
+.btn-cancel:hover {
+  background: #d8d8d8;
+}
+
+button.btn-danger {
+  padding: 10px 20px;
+  background: var(--danger-color);
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
+}
+
+button.btn-danger:hover {
+  background: var(--danger-hover);
 }
 
 .search-bar {

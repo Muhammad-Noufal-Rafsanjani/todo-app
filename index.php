@@ -81,12 +81,12 @@ echo "</div></div></div>";
 
 <div class="modal-overlay" id="deleteModalOverlay">
     <div class="modal-box">
-        <h3>Delete Account?</h3>
-        <p>This action is permanent. All your notes will be deleted and cannot be recovered.</p>
+        <h3>Hapus Akun?</h3>
+        <p>Aksi ini permanen. Semua catatan Anda akan dihapus.</p>
         <div class="modal-actions">
-            <button class="btn-cancel" onclick="hideDeleteModal()">Cancel</button>
+            <button class="btn-cancel" onclick="hideDeleteModal()">Batal</button>
             <form action="process_delete_account.php" method="POST" style="display: inline;">
-                <button type="submit" class="btn-danger">Yes, Delete My Account</button>
+                <button type="submit" class="btn-danger">Ya, Hapus Akun</button>
             </form>
         </div>
     </div>
