@@ -21,7 +21,17 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 
 <div class="navbar">
   <h2>Catatanku</h2>
-  <a href="logout.php">Logout</a>
+  <div class="profile-menu">
+    <div class="profile-trigger" onclick="toggleProfileDropdown()">
+      <span class="profile-icon">👤</span>
+      <span class="profile-email"><?php echo htmlspecialchars($_SESSION['user_email'] ?? ''); ?></span>
+    </div>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="edit_profile.php">Edit Profile</a>
+      <a href="delete_account.php">Delete Account</a>
+      <a href="logout.php">Logout</a>
+    </div>
+  </div>
 </div>
 
 <form action="tambah.php" method="POST">
@@ -86,6 +96,18 @@ function handleInput() {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(fetchNotes, 500);
 }
+
+function toggleProfileDropdown() {
+    document.getElementById('profileDropdown').classList.toggle('show');
+}
+
+document.addEventListener('click', function(event) {
+    const menu = document.querySelector('.profile-menu');
+    const dropdown = document.getElementById('profileDropdown');
+    if (menu && !menu.contains(event.target)) {
+        dropdown.classList.remove('show');
+    }
+});
 
 document.getElementById('keyword').addEventListener('input', handleInput);
 document.getElementById('date').addEventListener('input', fetchNotes);
