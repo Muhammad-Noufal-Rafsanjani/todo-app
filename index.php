@@ -27,11 +27,11 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
       <span class="profile-icon">👤</span>
       <span class="profile-email"><?php echo htmlspecialchars($_SESSION['user_email'] ?? ''); ?></span>
     </div>
-    <div class="profile-dropdown" id="profileDropdown">
-      <a href="edit_profile.php">Edit Profile</a>
-      <a href="#" onclick="showDeleteModal(); return false;">Delete Account</a>
-      <a href="logout.php">Logout</a>
-    </div>
+  <div class="profile-dropdown" id="profileDropdown">
+    <a href="#" onclick="showDeleteModal(); return false;"><i class="fa-solid fa-trash"></i> Delete Account</a>
+    <a href="edit_profile.php"><i class="fa-solid fa-gear"></i> Edit Profile</a>
+    <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+  </div>
   </div>
 </div>
 
