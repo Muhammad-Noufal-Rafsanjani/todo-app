@@ -14,6 +14,7 @@ $row = mysqli_fetch_assoc($result);
 ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <form action="update.php" method="POST">
     <input type="hidden" name="id" value="<?php echo $row['id']; ?>">

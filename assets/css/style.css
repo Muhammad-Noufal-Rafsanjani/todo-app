@@ -1,15 +1,66 @@
+:root {
+  --primary-color: #3b3486;
+  --primary-hover: #2d2766;
+  --danger-color: #e05263;
+  --danger-hover: #c8425a;
+  --bg-light: #f4f5f9;
+  --border-color: #e0e0e0;
+  --text-dark: #2b2b2b;
+  --text-muted: #777;
+  --radius: 10px;
+}
+
 * {
   box-sizing: border-box;
 }
 
-body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  max-width: 560px;
-  margin: 40px auto;
+.container {
+  max-width: 960px;
+  margin: 0 auto;
   padding: 0 20px;
-  background-color: #eef1f5;
-  color: #1a1a1a;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  margin: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea,
+select {
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 14px;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white !important;
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+}
+
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background-color: var(--primary-hover);
 }
 
 h1,
@@ -25,12 +76,8 @@ h2 {
   margin-bottom: 24px;
 }
 
-.navbar a {
-  background: #fff;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+.navbar a.btn-primary {
+  background-color: var(--primary-color) !important;
 }
 
 form {
@@ -55,12 +102,10 @@ textarea {
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #4caf50;
+  border-color: var(--primary-color);
 }
 
 button {
-  background-color: #4caf50;
-  color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -70,23 +115,28 @@ button {
   transition: background 0.2s;
 }
 
-button:hover {
-  background-color: #3d9540;
-}
-
 .note-card {
   background: white;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border: none;
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 14px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .note-card.done {
-  opacity: 0.55;
+  opacity: 0.6;
 }
 
 .note-card.done h3 {
@@ -98,25 +148,31 @@ button:hover {
 }
 
 .note-content h3 {
-  margin: 0 0 4px;
-  font-size: 16px;
+  margin: 0 0 6px 0;
 }
 
 .note-content p {
-  margin: 0 0 8px;
-  color: #555;
-  font-size: 14px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.note-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 14px;
+}
+
+.icon-edit {
+  color: var(--primary-color);
+}
+
+.icon-delete {
+  color: var(--danger-color);
 }
 
 .note-actions a {
-  font-size: 13px;
-  margin-right: 10px;
-  color: #2196f3;
   text-decoration: none;
-}
-
-.note-actions a:last-child {
-  color: #e53935;
+  font-size: 16px;
 }
 
 input[type="checkbox"] {
@@ -161,7 +217,9 @@ input[type="checkbox"] {
 }
 
 .profile-dropdown a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px 16px;
   text-decoration: none;
   color: #333;
@@ -190,32 +248,158 @@ input[type="checkbox"] {
 
 .modal-box {
   background: white;
-  padding: 24px;
-  border-radius: 10px;
+  padding: 28px;
+  border-radius: 14px;
   max-width: 360px;
   text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.modal-actions {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
+.modal-box h3 {
+  margin-top: 0;
 }
 
 .btn-cancel {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  background: #e8e8e8;
+  color: #444;
+  border-radius: 8px;
 }
 
-.btn-danger {
-  padding: 8px 16px;
-  border: none;
-  background: #dc3545;
+.btn-cancel:hover {
+  background: #d8d8d8;
+}
+
+button.btn-danger {
+  padding: 10px 20px;
+  background: var(--danger-color);
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
+  border-radius: 8px;
+}
+
+button.btn-danger:hover {
+  background: var(--danger-hover);
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input-wrapper i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: -4px;
+  color: var(--text-muted);
+}
+
+.search-input-wrapper input {
+  padding-left: 38px;
+}
+
+.btn-clear {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 10px 12px;
+}
+
+.btn-clear:hover {
+  color: var(--danger-color);
+}
+
+.edit-profile-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.edit-profile-form {
+  flex: 2;
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.edit-profile-form h3 {
+  margin-top: 24px;
+}
+
+.edit-profile-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+}
+
+.profile-info-card {
+  flex: 1;
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 12px;
+}
+
+.msg-success {
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.msg-error {
+  color: #c62828;
+  background: #ffebee;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background: white;
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
