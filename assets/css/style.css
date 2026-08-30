@@ -14,6 +14,12 @@
   box-sizing: border-box;
 }
 
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 body {
   font-family: "Segoe UI", sans-serif;
   background-color: var(--bg-light);
@@ -43,10 +49,13 @@ button {
   font-weight: 500;
 }
 
-button[type="submit"],
 .btn-primary {
   background-color: var(--primary-color);
-  color: white;
+  color: white !important;
+  display: inline-block;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius);
 }
 
 button[type="submit"]:hover,
@@ -67,12 +76,8 @@ h2 {
   margin-bottom: 24px;
 }
 
-.navbar a {
-  background: #fff;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+.navbar a.btn-primary {
+  background-color: var(--primary-color) !important;
 }
 
 form {
@@ -319,4 +324,88 @@ button.btn-danger:hover {
 
 .btn-clear:hover {
   color: var(--danger-color);
+}
+
+.edit-profile-layout {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.edit-profile-form {
+  flex: 2;
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.edit-profile-form h3 {
+  margin-top: 24px;
+}
+
+.edit-profile-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+}
+
+.profile-info-card {
+  flex: 1;
+  background: white;
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 12px;
+}
+
+.msg-success {
+  color: #2e7d32;
+  background: #e8f5e9;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.msg-error {
+  color: #c62828;
+  background: #ffebee;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background: white;
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
