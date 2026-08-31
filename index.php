@@ -69,7 +69,7 @@ $doneCount = mysqli_num_rows($tempResult);
 
     <hr>
 
-    <form method="GET" action="index.php">
+    <form method="GET" action="index.php" onsubmit="return false;">
     <div class="search-bar">
         <div class="search-input-wrapper">
             <i class="fa-solid fa-magnifying-glass"></i>
