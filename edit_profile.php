@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 <div class="container">
     <div class="navbar">
         <h2>Edit Profile</h2>
-        <a href="index.php" class="btn-primary" style="text-decoration: none; padding: 8px 16px;">Kembali ke Catatanku</a>
+        <button onclick="window.location.href='index.php'" class="btn-primary" style="text-decoration: none; padding: 8px 16px;">Kembali ke Catatanku</button>
     </div>
 
     <div class="edit-profile-layout">

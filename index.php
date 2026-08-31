@@ -22,7 +22,7 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
 
 <div class="container">
     <div class="navbar">
-        <h2>To-Do List</h2>
+        <h2><i class="fa-solid fa-note-sticky"></i> To-Do List</h2>
         <div class="profile-menu">
             <div class="profile-trigger" onclick="toggleProfileDropdown()">
                 <span class="profile-icon">👤</span>
@@ -36,12 +36,35 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
         </div>
     </div>
 
+<?php
+$totalNotes = mysqli_num_rows($result);
+mysqli_data_seek($result, 0);
+$doneCount = 0;
+$tempResult = getNotes($conn, $user_id, '', '', '1');
+$doneCount = mysqli_num_rows($tempResult);
+?>
+
+<div class="stats-bar">
+    <div class="stat-item">
+        <span class="stat-number"><?php echo $totalNotes; ?></span>
+        <span class="stat-label">Total Catatan</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number"><?php echo $doneCount; ?></span>
+        <span class="stat-label">Selesai</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number"><?php echo $totalNotes - $doneCount; ?></span>
+        <span class="stat-label">Belum Selesai</span>
+    </div>
+</div>
+
     <form action="tambah.php" method="POST">
       <input type="text" name="title" placeholder="Judul catatan" required>
       <br>
       <textarea name="content" placeholder="Isi catatan"></textarea>
       <br>
-      <button type="submit">Tambah Catatan</button>
+      <button type="submit" class="btn-primary">Tambah Catatan</button>
     </form>
 
     <hr>
@@ -58,7 +81,7 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
             <option value="1" <?php echo (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : ''; ?>>Done</option>
             <option value="0" <?php echo (isset($_GET['status']) && $_GET['status'] === '0') ? 'selected' : ''; ?>>Not Done</option>
         </select>
-        <a href="index.php" class="btn-clear">Clear</a>
+        <button type="button" class="btn-primary" onclick="clearSearch()">Clear</button>
     </div>
     </form>
 
@@ -68,18 +91,34 @@ $result = getNotes($conn, $user_id, $keyword, $date, $status);
       $doneClass = $row['is_done'] ? "done" : "";
       $checked = $row['is_done'] ? "checked" : "";
     echo "<div class='note-card $doneClass'>";
-    echo "<input type='checkbox' $checked onclick=\"location.href='toggle.php?id=" . $row['id'] . "'\">";
+    echo "<input type='checkbox' $checked onclick=\"toggleNote(" . $row['id'] . ")\">";
     echo "<div class='note-content'>";
     echo "<h3>" . htmlspecialchars($row['title']) . "</h3>";
     echo "<p>" . htmlspecialchars($row['content']) . "</p>";
+    echo "<span class='note-date'>" . date('d M Y, H:i', strtotime($row['created_at'])) . "</span>";
     echo "<div class='note-actions'>";
-    echo "<a href='edit.php?id=" . $row['id'] . "' class='icon-edit'><i class='fa-solid fa-pen'></i></a>";
+    echo "<a href='#' class='icon-edit' onclick=\"openEditModal(" . $row['id'] . ", '" . htmlspecialchars(addslashes($row['title'])) . "', '" . htmlspecialchars(addslashes($row['content'])) . "'); return false;\"><i class='fa-solid fa-pen'></i></a>";
     echo "<a href='hapus.php?id=" . $row['id'] . "' class='icon-delete'><i class='fa-solid fa-trash'></i></a>";
     echo "</div></div></div>";
     }
     ?>
     </div>
 
+</div>
+
+<div class="modal-overlay" id="editModalOverlay">
+    <div class="modal-box">
+        <h3>Edit Catatan</h3>
+        <form id="editForm">
+            <input type="hidden" id="editNoteId">
+            <input type="text" id="editTitle" placeholder="Judul catatan" required>
+            <textarea id="editContent" placeholder="Isi catatan"></textarea>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeEditModal()">Batal</button>
+                <button type="submit" class="btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="modal-overlay" id="deleteModalOverlay">
@@ -106,12 +145,29 @@ function fetchNotes() {
     const params = new URLSearchParams({ keyword, date, status });
 
     fetch('search_notes.php?' + params.toString())
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('notesList').innerHTML = html;
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('notesList').innerHTML = data.html;
+            document.querySelectorAll('.stat-number')[0].textContent = data.total;
+            document.querySelectorAll('.stat-number')[1].textContent = data.done;
+            document.querySelectorAll('.stat-number')[2].textContent = data.notDone;
         })
         .catch(error => console.error('Error fetching notes:', error));
 }
+
+function clearSearch() {
+    document.getElementById('keyword').value = '';
+    document.getElementById('date').value = '';
+    document.getElementById('status').value = '';
+    fetchNotes();
+}
+
+function toggleNote(id) {
+    fetch('toggle.php?id=' + id)
+        .then(() => fetchNotes())
+        .catch(error => console.error('Error toggling note:', error));
+}
+
 
 function handleInput() {
     clearTimeout(debounceTimer);
@@ -128,6 +184,38 @@ document.addEventListener('click', function(event) {
     if (menu && !menu.contains(event.target)) {
         dropdown.classList.remove('show');
     }
+});
+
+function openEditModal(id, title, content) {
+    document.getElementById('editNoteId').value = id;
+    document.getElementById('editTitle').value = title;
+    document.getElementById('editContent').value = content;
+    document.getElementById('editModalOverlay').classList.add('show');
+}
+
+function closeEditModal() {
+    document.getElementById('editModalOverlay').classList.remove('show');
+}
+
+document.getElementById('editForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const id = document.getElementById('editNoteId').value;
+    const title = document.getElementById('editTitle').value;
+    const content = document.getElementById('editContent').value;
+
+    const params = new URLSearchParams({ id, title, content });
+
+    fetch('update.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+    })
+    .then(() => {
+        closeEditModal();
+        fetchNotes();
+    })
+    .catch(error => console.error('Error updating note:', error));
 });
 
 function showDeleteModal() {
