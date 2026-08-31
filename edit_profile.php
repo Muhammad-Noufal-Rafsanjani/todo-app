@@ -20,16 +20,16 @@ if (!isset($_SESSION['user_id'])) {
         <div class="edit-profile-form">
 
             <?php if (isset($_GET['email_success'])): ?>
-                <p class="msg-success">Email updated successfully.</p>
+                <p class="msg-success"><i class="fa-solid fa-circle-check"></i> Email updated successfully.</p>
             <?php endif; ?>
             <?php if (isset($_GET['email_error'])): ?>
-                <p class="msg-error">Email is already taken or invalid.</p>
+                <p class="msg-error"><i class="fa-solid fa-circle-exclamation"></i> Email is already taken or invalid.</p>
             <?php endif; ?>
             <?php if (isset($_GET['password_success'])): ?>
-                <p class="msg-success">Password updated successfully.</p>
+                <p class="msg-success"><i class="fa-solid fa-circle-check"></i> Password updated successfully.</p>
             <?php endif; ?>
             <?php if (isset($_GET['password_error'])): ?>
-                <p class="msg-error">Current password is incorrect.</p>
+                <p class="msg-error"><i class="fa-solid fa-circle-exclamation"></i> Current password is incorrect.</p>
             <?php endif; ?>
 
             <h3>Perbarui Email</h3>

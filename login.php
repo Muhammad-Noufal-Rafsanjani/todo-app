@@ -1,16 +1,17 @@
 <?php
 include "includes/koneksi.php";
 ?>
-<?php if (isset($_GET['error'])): ?>
-  <p style="color:red;">Email atau password salah.</p>
-<?php endif; ?>
 
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+
 <div class="auth-wrapper">
     <div class="auth-card">
         <h2>Login</h2>
+        <?php if (isset($_GET['error'])): ?>
+            <p class="msg-error"><i class="fa-solid fa-circle-exclamation"></i> Email atau password salah.</p>
+        <?php endif; ?>
         <form action="proses_login.php" method="POST">
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
