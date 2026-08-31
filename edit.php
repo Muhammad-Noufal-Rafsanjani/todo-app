@@ -22,6 +22,6 @@ $row = mysqli_fetch_assoc($result);
     <br>
     <textarea name="content"><?php echo $row['content']; ?></textarea>
     <br>
-    <button type="submit">Update Catatan</button>
-    <a href="index.php">Kembali</a>
+    <button type="submit" class="btn-primary">Update Catatan</button>
+    <button type="button" class="btn-cancel" onclick="window.location.href='index.php'">Kembali</button>
 </form>

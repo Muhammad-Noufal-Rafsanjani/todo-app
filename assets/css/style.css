@@ -88,6 +88,28 @@ form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+.navbar h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin: 0;
+}
+
+.navbar h2 i {
+  color: var(--primary-color);
+  background: var(--bg-light);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
 input,
 textarea {
   width: 100%;
@@ -115,6 +137,83 @@ button {
   transition: background 0.2s;
 }
 
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23777' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  padding-right: 36px;
+}
+
+#notesList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  #notesList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  #notesList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 12px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stats-bar {
+    flex-direction: column;
+  }
+}
+
+.stats-bar {
+  display: flex;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.stat-item {
+  background: white;
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  flex: 1;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 .note-card {
   background: white;
   border: none;
@@ -122,7 +221,7 @@ button {
   padding: 18px 22px;
   margin-bottom: 14px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition:
@@ -130,9 +229,17 @@ button {
     box-shadow 0.15s ease;
 }
 
-.note-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+.note-card input[type="checkbox"] {
+  order: 2;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.note-card .note-content {
+  order: 1;
+  flex: 1;
 }
 
 .note-card.done {
@@ -156,23 +263,49 @@ button {
   color: var(--text-muted);
 }
 
+.note-date {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
 .note-actions {
-  margin-top: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
   display: flex;
-  gap: 14px;
-}
-
-.icon-edit {
-  color: var(--primary-color);
-}
-
-.icon-delete {
-  color: var(--danger-color);
+  gap: 16px;
 }
 
 .note-actions a {
   text-decoration: none;
-  font-size: 16px;
+  font-size: 15px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.icon-edit {
+  color: var(--primary-color);
+  background: rgba(59, 52, 134, 0.08);
+}
+
+.icon-edit:hover {
+  background: rgba(59, 52, 134, 0.15);
+}
+
+.icon-delete {
+  color: var(--danger-color);
+  background: rgba(224, 82, 99, 0.08);
+}
+
+.icon-delete:hover {
+  background: rgba(224, 82, 99, 0.15);
 }
 
 input[type="checkbox"] {
@@ -368,18 +501,28 @@ button.btn-danger:hover {
   margin: 0 auto 12px;
 }
 
+.msg-success,
+.msg-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
 .msg-success {
   color: #2e7d32;
   background: #e8f5e9;
-  padding: 10px 14px;
-  border-radius: 8px;
+  border-left-color: #2e7d32;
 }
 
 .msg-error {
   color: #c62828;
   background: #ffebee;
-  padding: 10px 14px;
-  border-radius: 8px;
+  border-left-color: #c62828;
 }
 
 .auth-wrapper {
